@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField] TasksUIMain tasksUIParent;//the parent of the tasks
     [SerializeField] MapUIManager mapManager;
     [SerializeField] RectTransform playerInMap;
+    [SerializeField] GameObject settingsPanel;
     
     public bool playerDoingPuzzle { private set; get; }
     public bool playerLost { private set; get; }
@@ -49,6 +50,8 @@ public class Player : MonoBehaviour
 
         RockPaperGame.winGame += FinishGameWin;
         RockPaperGame.lostGame += FinishGameLost;
+
+        Cursor.visible = false;
 
         
     }
@@ -177,7 +180,7 @@ public class Player : MonoBehaviour
         if (!pv.IsMine) return false;
         if (puzzlesNeedToSolve.Find(x => (x.id == puzzleId))) //check if the puzzle exist in the player puzzles
         {
-            playerDoingPuzzle = true;
+            closePuzzle(true);
             return true;
         }     
         return false;
@@ -185,6 +188,8 @@ public class Player : MonoBehaviour
     public void closePuzzle(bool close = false)
     {
         playerDoingPuzzle = close;
+        Cursor.visible = close;
+   
     }
 
     void ShowPuzzles() // show or update the UI of puzzle
@@ -208,6 +213,12 @@ public class Player : MonoBehaviour
         {
             mapManager.gameObject.SetActive(!mapManager.gameObject.activeSelf);
         }
-        
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            bool isActive = settingsPanel.activeSelf;
+            
+            settingsPanel.SetActive(!isActive);
+            closePuzzle(!isActive);
+        }
     }
 }

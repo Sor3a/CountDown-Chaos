@@ -10,6 +10,29 @@ public class GameManager : MonoBehaviour
     [SerializeField] Transform MapOrigin;
     Vector3 mapPosition;
 
+    List<Vector3> SpawnPositions;
+
+    private void Awake()
+    {
+        if (instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        playerList = new List<Player>();
+        mapPosition = MapOrigin.position;
+        SpawnPositions = new List<Vector3>();
+        foreach (Transform item in transform)
+        {
+            SpawnPositions.Add(item.position);
+        }
+    }
+
+    public Vector3 GetPlayerSpawnPosition()
+    {
+        return SpawnPositions[Random.Range(0, SpawnPositions.Count)];
+    }
     /// </real life to map unit transformation>
     /// 50m RL ---> 1000m map
     /// 1m RL ----> 20m map
@@ -50,15 +73,5 @@ public class GameManager : MonoBehaviour
                 
         }
     }
-    private void Awake()
-    {
-        if(instance)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        instance = this;
-        playerList = new List<Player>();
-        mapPosition = MapOrigin.position;
-    }
+
 }

@@ -38,7 +38,10 @@ public class PlayerControllor : MonoBehaviour
         animator = GetComponent<Animator>();
         source = GetComponent<AudioSource>();
     }
-
+    public void setSensetivity(float sensetivity)
+    {
+        mouseSensitivity = sensetivity;
+    }
     private void FixedUpdate()
     {
         if (!pv.IsMine) return;

@@ -8,8 +8,8 @@ public class TaskUI : MonoBehaviour
 {
     bool isFinished;
     [SerializeField] TextMeshProUGUI nameOfTask;
-    [SerializeField] Image state; //finished 
-    [SerializeField] Sprite finished, notFinished;
+    [SerializeField] Image state,TaskType; //finished 
+    [SerializeField] Sprite finished, notFinished,steal,win;
 
     int taskId;
     private void OnEnable()
@@ -20,12 +20,14 @@ public class TaskUI : MonoBehaviour
     {
         return taskId;
     }
-    public void InitializeUI(int id, string taskeName, Color color,bool Finished = false)
+    public void InitializeUI(int id, string taskeName, puzzleType type,bool Finished = false)
     {
         isFinished = Finished;
         taskId = id;
         nameOfTask.text = taskeName;
-        nameOfTask.color = color;
+        nameOfTask.color = Color.white;
+        var sprite = type == puzzleType.WinTime ? win : steal;
+        TaskType.sprite = sprite;
         if (!Finished)
             state.sprite = notFinished;
     }

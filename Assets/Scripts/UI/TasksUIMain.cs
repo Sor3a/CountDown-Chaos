@@ -36,7 +36,7 @@ public class TasksUIMain : MonoBehaviour
             tasks.Add(taskUI);
 
             //taskUI.InitializeUI(puzzle.id, puzzle.getName(), colors[(int)puzzle.getPuzzleType()]);
-            taskUI.InitializeUI(puzzle.id, puzzle.getName(), Color.white);
+            taskUI.InitializeUI(puzzle.id, puzzle.getName(), puzzle.getPuzzleType());
         }
     }
 }
